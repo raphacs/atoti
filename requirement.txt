@@ -1,0 +1,4 @@
+atoti[jupyterlab]
+pandas
+jupyter
+notebook
