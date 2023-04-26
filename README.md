@@ -1,5 +1,11 @@
-# Tutorial
 
+# Instalation
+
+```
+pip install atoti[jupyterlab]
+```
+
+# Tutorial
 Este tutorial irá guiá-lo pelas principais funcionalidades do atoti, criando uma aplicação para analisar as vendas de uma empresa.
 
 Veremos como:
@@ -27,7 +33,7 @@ session = tt.Session()
 Agora podemos carregar os dados de um arquivo CSV em uma tabela em memória chamada de _table_:
 
 ```
-sales_table = session.read_csv("data/sales.csv", keys=["Sale ID"])
+sales_table = session.read_csv("tutorial/data/sales.csv", keys=["Sale ID"])
 ```
 
 Podemos dar uma olhada nos dados carregados.
@@ -217,7 +223,7 @@ Atualmente, temos informações muito limitadas sobre nossos produtos: apenas o 
 Podemos carregar um CSV contendo mais detalhes em uma nova tabela:
 
 ```
-products_table = session.read_csv("data/products.csv", keys=["Product"])
+products_table = session.read_csv("tutorial/data/products.csv", keys=["Product"])
 ```
 
 Observe que uma tabela pode ter um conjunto de chaves.
@@ -285,7 +291,7 @@ cube.query(m["Purchase price.VALUE"], levels=[l["Product"]])
 De forma semelhante, podemos enriquecer os dados sobre as lojas:
 
 ```
-shops_table = session.read_csv("data/shops.csv", keys=["Shop ID"])
+shops_table = session.read_csv("tutorial/data/shops.csv", keys=["Shop ID"])
 shops_table.head()
 sales_table.join(shops_table, sales_table["Shop"] == shops_table["Shop ID"])
 session.tables.schema
@@ -519,7 +525,7 @@ import pandas as pd
 Por exemplo, podemos simular o que aconteceria se tivéssemos conseguido comprar alguns produtos a um preço mais barato.
 
 ```
-products_df = pd.read_csv("data/products.csv")
+products_df = pd.read_csv("tutorial/data/products.csv")
 products_df.head()
 better_prices = {
     "TAB_0": 180.0,
