@@ -35,7 +35,7 @@ Mas o que é um cubo exatamente e como usá-lo?
 Um _cube_ é uma visualização multidimensional de alguns dados, tornando fácil explorar, agregar, filtrar e comparar.
 Ele é chamado de cubo porque cada atributo dos dados pode ser representado como uma dimensão do cubo:
 
-<img alt="Multidimensional cube concept" src="images/olap/cube-concept.svg" width="400" />
+<img alt="Multidimensional cube concept" src="tutorial/images/olap/cube-concept.svg" width="400" />
 
 Os eixos do cubo são chamados de _hierarchies_.
 O objetivo da análise multidimensional é visualizar alguns indicadores numéricos em coordenadas específicas do cubo.
@@ -66,26 +66,26 @@ Observe que uma medida não é um único número de resultado, é mais uma fórm
 
 Por exemplo, podemos consultar a _grand total_ de **Quantity.SUM**, que significa somar as quantidades vendidas em todo o conjunto de dados:
 
-<img alt="Grand total" src="images/olap/grand-total.svg" width="400" />
+<img alt="Grand total" src="tutorial/images/olap/grand-total.svg" width="400" />
 cube.query(m["Quantity.SUM"])
 Mas também podemos _dice_ consultar o cubo para obter a quantidade para cada **Shop**, o que significa tomar um _slice_ da cubo para cada **Shop**:
 
-<img alt="Dicing the cube" src="images/olap/slices.svg" width="400" />
+<img alt="Dicing the cube" src="tutorial/images/olap/slices.svg" width="400" />
 cube.query(m["Quantity.SUM"], levels=[l["Shop"]])
 Podemos _slice_ em um único **Shop**:
 
-<img alt="Slicing the cube" src="images/olap/slice.svg" width="400" />
+<img alt="Slicing the cube" src="tutorial/images/olap/slice.svg" width="400" />
 cube.query(
     m["Quantity.SUM"],
     filter=l["Shop"] == "shop_0",
 )
 Nós podemos fatiar ao longo de 2 eixos diferentes e obter a quantidade por produto e data.
 
-<img alt="Pivot table" src="images/olap/pivot-table.svg" width="400" />
+<img alt="Pivot table" src="tutorial/images/olap/pivot-table.svg" width="400" />
 cube.query(m["Quantity.SUM"], levels=[l["Date"], l["Product"]])
 Podemos até mesmo combinar essas operações para fatiar em uma hierarquia e cortar em outras duas.
 
-<img alt="Slice and dice" src="images/olap/slice-and-dice.svg" width="400" />
+<img alt="Slice and dice" src="tutorial/images/olap/slice-and-dice.svg" width="400" />
 cube.query(
     m["Quantity.SUM"],
     levels=[l["Date"], l["Product"]],
@@ -105,13 +105,13 @@ Vamos começar criando uma tabela dinâmica:
 - Click em uma hierarquia como **Date** para obter a quantidade por data.
 - Arraste e solte outra hierarquia, como por exemplo: **Product** para **Columns** seção para obter a quantidade vendida por dia e por produto.
 
-![First pivot table](images/gifs/first-pivot-table.gif)
+![First pivot table](tutorial/images/gifs/first-pivot-table.gif)
 session.visualize()
 Uma tabela dinâmica pode ser convertida em um gráfico.
 
 Por exemplo, vamos mudar para um gráfico de linha simples.
 
-![First atoti chart](images/gifs/first-chart.gif)
+![First atoti chart](tutorial/images/gifs/first-chart.gif)
 session.visualize()
 session.link()
 ### Drilldown e filtros.
@@ -122,14 +122,14 @@ Por exemplo, podemos visualizar algumas medidas por data e depois aprofundar em 
 
 Usando a representação anterior do cubo, é como se estivéssemos dando um zoom cada vez maior em uma parte do cubo.
 
-<img alt="Drilldown the cube" src="images/olap/drilldown.svg" width="1200" />
+<img alt="Drilldown the cube" src="tutorial/images/olap/drilldown.svg" width="1200" />
 
-![Drilldown](images/gifs/drilldown.gif)
+![Drilldown](tutorial/images/gifs/drilldown.gif)
 session.visualize()
 As hierarquias podem ser filtradas ao construir widgets.
 Vamos aplicar um filtro no gráfico anterior e visualizar apenas a quantidade de um grupo de produtos selecionados.
 
-![Chart filter](images/gifs/filter-chart.gif)
+![Chart filter](tutorial/images/gifs/filter-chart.gif)
 session.visualize()
 ### Aplicativo de painel
 
@@ -142,7 +142,7 @@ session.link()
 É possível publicar widgets construídos no notebook para o aplicativo clicando com o botão direito sobre eles e selecionando "Publish widget in app".
 Em seguida, estarão disponíveis na seção "Saved widgets".
 
-![Publish widget in application](images/gifs/open-in-app.gif)
+![Publish widget in application](tutorial/images/gifs/open-in-app.gif)
 ## Enriquecendo o cubo
 
 Na seção anterior, você aprendeu como criar um cubo básico e manipulá-lo.
@@ -172,11 +172,11 @@ h
 Você pode usá-los diretamente em um novo widget.
 Por exemplo, vamos criar um gráfico de barras para visualizar o preço médio por subcategoria de produto:
 
-![Price per category](images/gifs/price-per-category.png)
+![Price per category](tutorial/images/gifs/price-per-category.png)
 session.visualize()
 Também podemos fazer um gráfico de rosca para ver como todas as vendas são distribuídas entre as marcas:
 
-![Donut chart brands](images/gifs/donut-chart.png)
+![Donut chart brands](tutorial/images/gifs/donut-chart.png)
 session.visualize()
 Observe que após a junção podemos adicionar uma nova medida chamada **Purchase price.VALUE** com base na coluna correspondente da tabela unida.
 Esta medida representa o valor da coluna, por isso só é definida quando todas as chaves da tabela unida são expressas na consulta.
@@ -209,7 +209,7 @@ m["Amount.MEAN"] = tt.agg.mean(
 )
 Agora podemos traçar a evolução das vendas por país ao longo do tempo:
 
-![Amount per country over time](images/gifs/split-by-country.gif)
+![Amount per country over time](tutorial/images/gifs/split-by-country.gif)
 session.visualize()
 #### Margem
 
@@ -228,7 +228,7 @@ Vamos usar essa taxa de margem para fazer um _Top 10_ filtre para ver os produto
 
 Observe que você não precisa colocar a medida de taxa e o nível do produto na tabela dinâmica para aplicar o filtro.
 
-![top10 filter on the margin rate](images/gifs/top10-margin.gif)
+![top10 filter on the margin rate](tutorial/images/gifs/top10-margin.gif)
 session.visualize()
 #### Soma acumulada ao longo do tempo
 Uma soma cumulativa é a soma parcial dos dados até o valor atual.
@@ -236,7 +236,7 @@ Por exemplo, uma soma cumulativa ao longo do tempo pode ser usada para mostrar c
 m["Cumulative amount"] = tt.agg.sum(
     m["Amount.SUM"], scope=tt.CumulativeScope(level=l["Date"])
 )
-![Cumulative amount](images/gifs/cumulative-amount.png)
+![Cumulative amount](tutorial/images/gifs/cumulative-amount.png)
 session.visualize()
 #### Média por loja
 As agregações também podem ser combinadas.
@@ -280,7 +280,7 @@ m["Parent category amount"] = tt.parent_value(
     m["Amount.SUM"], degrees={h[("Products", "Product")]: 1}
 )
 m["Percent of parent amount"] = m["Amount.SUM"] / m["Parent category amount"]
-![Percent of parent](images/gifs/percent-of-parent.gif)
+![Percent of parent](tutorial/images/gifs/percent-of-parent.gif)
 session.visualize()
 ## polindo o cubo
 ### Excluir ou ocultar medidas
@@ -352,16 +352,16 @@ Agora podemos carregar esse novo dataframe em um novo cenário da tabela de prod
 products_table.scenarios["Cheaper purchase prices"].load_pandas(products_df)
 A sessão agora tem dois cenários e as únicas diferenças entre eles são as linhas correspondentes aos produtos com melhores preços, todo o resto é compartilhado entre os cenários e não foi duplicado: os cenários de origem em atoti são eficientes em memória.
 
-<img alt="Source simulation" src="images/olap/source-simulation.svg" width="750" />
+<img alt="Source simulation" src="tutorial/images/olap/source-simulation.svg" width="750" />
 
 Usando o a hierarquia **Source Simulation**, podemos exibir a margem do cenário e compará-la com o caso base.
 
-![Source simulation comparison](images/gifs/source-simulation.gif)
+![Source simulation comparison](tutorial/images/gifs/source-simulation.gif)
 session.visualize()
 Observe que todas as medidas existentes estão imediatamente disponíveis nos novos dados.
 Por exemplo, a taxa de margem ainda existe, e podemos ver que nesse cenário teríamos uma margem melhor para os produtos Móveis.
 
-![Margin rate per product category and scenario](images/gifs/margin-rate-per-scenario.gif)
+![Margin rate per product category and scenario](tutorial/images/gifs/margin-rate-per-scenario.gif)
 session.visualize()
 ### Simulações de parâmetros
 
@@ -404,11 +404,11 @@ country_simulation += ("US boost", "USA", 1.15)
 cube.query(m["Quantity.SUM"], levels=[l["Country Simulation"], l["Country"]])
 Os dois cenários podem ser visualizados no mesmo widget:
 
-![Cumulative amount per scenario](images/gifs/cumulative-amount-per-scenario.gif)
+![Cumulative amount per scenario](tutorial/images/gifs/cumulative-amount-per-scenario.gif)
 session.visualize()
 Finalmente, podemos até combinar as diferentes simulações (a de origem e a de medida) para criar uma matriz de cenários:
 
-![Matrix of scenarios](images/gifs/scenarios-matrix.gif)
+![Matrix of scenarios](tutorial/images/gifs/scenarios-matrix.gif)
 session.visualize()
 ## Indo além
 
